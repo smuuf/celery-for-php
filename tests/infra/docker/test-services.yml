@@ -1,0 +1,29 @@
+services:
+  tests-runner:
+    build:
+      context: ../../../
+      dockerfile: ./tests/infra/docker/Dockerfile.tests
+    environment:
+      - DOCKER_TESTS=1
+    networks:
+      - test-network
+    volumes:
+      - ../../output:/home/my_user/celery-for-php/tests/output
+    depends_on:
+      - redis-server
+      - celery-app
+
+  celery-app:
+    build: ../celery-app/
+    environment:
+      - DOCKER_TESTS=1
+    networks:
+      - test-network
+
+  redis-server:
+    image: redis
+    networks:
+      - test-network
+
+networks:
+  test-network:

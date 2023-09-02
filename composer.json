@@ -1,0 +1,33 @@
+{
+	"name": "smuuf/celery-for-php",
+	"description": "A modern Celery client for modern PHP.",
+	"license": "MIT",
+	"type": "library",
+	"authors": [
+		{
+			"name": "Premysl Karbula"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/smuuf/celery-for-php/issues",
+		"source": "https://github.com/smuuf/celery-for-php"
+	},
+	"autoload":{
+		 "psr-4": {
+			 "Smuuf\\CeleryForPhp\\": "src/"
+		 }
+	},
+	"require": {
+		"php": ">=8.0",
+		"ramsey/uuid": ">=4",
+		"symfony/polyfill-php81": "^1.26"
+	},
+	"require-dev": {
+		"nette/tester": "^2.4",
+		"phpstan/phpstan": "^1.8",
+		"predis/predis": "^2"
+	},
+	"suggest": {
+		"predis/predis": "Adds support for the predis, PHP client library for Redis, backend"
+	}
+}

@@ -1,0 +1,9 @@
+# IDE stuff.
+.vscode
+*.code-workspace
+
+# Tests.
+tests/**/output/**
+
+# Installed dependencies.
+vendor

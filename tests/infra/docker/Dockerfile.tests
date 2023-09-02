@@ -1,0 +1,19 @@
+FROM php:8.1-cli-alpine
+
+RUN adduser my_user --disabled-password
+USER my_user
+WORKDIR /home/my_user
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+RUN mkdir celery-for-php #
+WORKDIR /home/my_user/celery-for-php
+
+COPY ./composer.json ./composer.lock ./
+RUN composer install -o
+
+COPY --chown=my_user:my_user --link ./bin ./bin
+COPY --chown=my_user:my_user --link ./src ./src
+COPY --chown=my_user:my_user --link ./tests ./tests
+
+ENTRYPOINT ["sh", "-c", "./bin/tests.sh"]
