@@ -4,6 +4,7 @@
 
 # Tests.
 tests/**/output/**
+!tests/**/output/.gitkeep
 
 # Installed dependencies.
 vendor

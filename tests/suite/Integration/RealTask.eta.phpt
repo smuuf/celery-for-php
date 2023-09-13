@@ -49,13 +49,13 @@ function test_task_with_eta($eta, int $wait): void {
 
 }
 
-test_task_with_eta('now + 3 seconds', 5);
-test_task_with_eta(new \DateTime('now + 2 seconds'), 3);
+test_task_with_eta('now + 3 seconds', 6);
+test_task_with_eta(new \DateTime('now + 2 seconds'), 6);
 
 Assert::exception(function() {
-	test_task_with_eta('just some garbage', 3);
+	test_task_with_eta('just some garbage', 1);
 }, InvalidArgumentException::class, '#cannot convert#i');
 
 Assert::exception(function() {
-	test_task_with_eta(['wtf lol'], 3);
+	test_task_with_eta(['wtf lol'], 1);
 }, \TypeError::class);

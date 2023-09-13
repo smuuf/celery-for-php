@@ -1,5 +1,7 @@
 # celery-for-php 🌱
 
+[![PHP tests](https://github.com/smuuf/celery-for-php/actions/workflows/php.yml/badge.svg)](https://github.com/smuuf/celery-for-php/actions/workflows/php.yml)
+
 A modern PHP client library for [Celery - Distributed Task Queue](https://docs.celeryq.dev).
 
 ## Requirements
