@@ -1,18 +1,10 @@
 from os import environ
 import time
-import datetime
 import celery
 from typing import Union
 
 
-_IN_DOCKER = bool(environ.get('DOCKER_TESTS'))
-
-
-if _IN_DOCKER:
-    CONNECTION = 'redis://redis-server'
-else:
-    CONNECTION = 'redis://127.0.0.1'
-
+CONNECTION = 'redis://127.0.0.1'
 BROKER = CONNECTION
 #BROKER = 'amqp://myuser:mypassword@localhost:5672/myvhost'
 

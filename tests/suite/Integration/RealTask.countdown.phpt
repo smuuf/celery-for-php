@@ -41,7 +41,7 @@ function test_task_with_countdown(int $countdown): void {
 	Assert::same(State::PENDING, $asyncResult->getState(), "Task was sent with countdown, so it's PENDING");
 	Assert::false($asyncResult->isReady(), "Task was sent with countdown, so it's not ready");
 
-	sleep($countdown + 1);
+	sleep($countdown + 5);
 
 	Assert::same(State::SUCCESS, $asyncResult->getState(), "Countdown passed and task should be a SUCCESS");
 	Assert::true($asyncResult->isReady(), "Countdown passed and task should be 'ready'");

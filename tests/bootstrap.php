@@ -9,17 +9,7 @@ class TestEnv {
 	private static string $redisUri;
 
 	public static function init(): void {
-
-		$local = !getenv('DOCKER_TESTS');
-
-		if ($local) {
-			// Local test env.
-			self::$redisUri = '127.0.0.1';
-		} else {
-			// Inside Docker test env.
-			self::$redisUri = 'redis-server';
-		}
-
+		self::$redisUri = '127.0.0.1';
 	}
 
 	public static function getRedisUri(): string {
