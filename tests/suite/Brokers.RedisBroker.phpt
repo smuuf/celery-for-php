@@ -4,9 +4,8 @@ use Tester\Assert;
 
 use Predis\Client as PredisClient;
 
-use Smuuf\CeleryForPhp\TaskSignature;
-use Smuuf\CeleryForPhp\Brokers\RedisBroker;
 use Smuuf\CeleryForPhp\DeliveryInfo;
+use Smuuf\CeleryForPhp\Brokers\RedisBroker;
 use Smuuf\CeleryForPhp\Drivers\PredisDriver;
 use Smuuf\CeleryForPhp\Messaging\CeleryMessage;
 use Smuuf\CeleryForPhp\Serializers\JsonSerializer;
@@ -24,7 +23,7 @@ function _prepare_random_queue(): string {
 
 }
 
-$predis = new PredisClient(['host' => TestEnv::getRedisUri()]);
+$predis = new PredisClient(['host' => '127.0.0.1']);
 $redisDriver = new PredisDriver($predis);
 $broker = new RedisBroker($redisDriver);
 

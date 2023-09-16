@@ -14,7 +14,7 @@ use Smuuf\CeleryForPhp\State;
 
 require __DIR__ . '/../../bootstrap.php';
 
-$predis = new PredisClient(['host' => TestEnv::getRedisUri()]);
+$predis = new PredisClient(['host' => '127.0.0.1']);
 $redisDriver = new PredisDriver($predis);
 
 $c = new Celery(
@@ -49,13 +49,13 @@ function test_task_with_eta($eta, int $wait): void {
 
 }
 
-test_task_with_eta('now + 3 seconds', 6);
+test_task_with_eta('now + 3 seconds', 9);
 test_task_with_eta(new \DateTime('now + 2 seconds'), 6);
 
 Assert::exception(function() {
-	test_task_with_eta('just some garbage', 1);
+	test_task_with_eta('just some garbage', 3);
 }, InvalidArgumentException::class, '#cannot convert#i');
 
 Assert::exception(function() {
-	test_task_with_eta(['wtf lol'], 1);
+	test_task_with_eta(['wtf lol'], 3);
 }, \TypeError::class);

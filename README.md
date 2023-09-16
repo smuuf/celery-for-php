@@ -5,7 +5,7 @@
 A modern PHP client library for [Celery - Distributed Task Queue](https://docs.celeryq.dev).
 
 ## Requirements
-- PHP 8.0+
+- PHP 8.1+
 
 ## Example
 
@@ -36,7 +36,9 @@ $task = new TaskSignature(
 // Send the task into Celery.
 $asyncResult = $celery->sendTask($task);
 
-// Wait for the result and retrieve it.
+// Wait for the result (up to 10 seconds by default) and return it.
+// Alternatively a \Smuuf\CeleryForPhp\Exc\CeleryTimeoutException exception will
+// be thrown if the task won't finish in time.
 $result = $asyncResult->get();
 // $result === 9
 ```

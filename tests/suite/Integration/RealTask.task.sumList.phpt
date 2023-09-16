@@ -13,7 +13,7 @@ use Smuuf\CeleryForPhp\State;
 
 require __DIR__ . '/../../bootstrap.php';
 
-$predis = new PredisClient(['host' => TestEnv::getRedisUri()]);
+$predis = new PredisClient(['host' => '127.0.0.1']);
 $redisDriver = new PredisDriver($predis);
 
 $c = new Celery(

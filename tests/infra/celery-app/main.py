@@ -6,12 +6,10 @@ from typing import Union
 
 CONNECTION = 'redis://127.0.0.1'
 BROKER = CONNECTION
-#BROKER = 'amqp://myuser:mypassword@localhost:5672/myvhost'
 
 
 class Config:
     task_serializer = 'json'
-    #task_serializer = 'msgpack'
 
 
 number = Union[int, float]

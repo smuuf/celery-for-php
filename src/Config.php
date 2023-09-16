@@ -25,15 +25,15 @@ class Config {
 	 *     Name of the Celery control exchange (used for sending control commands,
 	 *     such as 'revoke', to Celery workers).
 	 *     Default value is 'celery' but can be specified to some other name.
-	 * @param int $messageProtocolVersion
-	 *     Celery message protocol version to use.
+	 * @param int $taskMessageProtocolVersion
+	 *     Celery task message protocol version to use.
 	 *     See https://docs.celeryq.dev/en/stable/internals/protocol.html
 	 * @param ISerializer $taskSerializer
 	 *     Serializer to use when serializing task message body. If not
 	 *     specified, `JsonSerializer` is used by default.
 	 */
 	public function __construct(
-		private int $messageProtocolVersion = MessageBuilder::MESSAGE_PROTOCOL_V2,
+		private int $taskMessageProtocolVersion = MessageBuilder::MESSAGE_PROTOCOL_V2,
 		private ?ISerializer $taskSerializer = null,
 		private ?ITaskIdFactory $taskIdFactory = null,
 		private string $controlExchangeName = 'celery',
@@ -46,8 +46,8 @@ class Config {
 			throw new InvalidArgumentException('Control exchange name must be a non-empty string');
 		}
 
-		if (!in_array($this->messageProtocolVersion, MessageBuilder::VALID_MESSAGE_PROTOCOL_VERSIONS, true)) {
-			throw new InvalidArgumentException("Invalid message protocol version '{$this->messageProtocolVersion}'");
+		if (!in_array($this->taskMessageProtocolVersion, MessageBuilder::VALID_MESSAGE_PROTOCOL_VERSIONS, true)) {
+			throw new InvalidArgumentException("Invalid message protocol version '{$this->taskMessageProtocolVersion}'");
 		}
 
 	}
@@ -61,7 +61,7 @@ class Config {
 	}
 
 	public function getTaskProtocolVersion(): int {
-		return $this->messageProtocolVersion;
+		return $this->taskMessageProtocolVersion;
 	}
 
 	public function getTaskSerializer(): ISerializer {

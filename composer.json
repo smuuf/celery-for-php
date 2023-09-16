@@ -28,6 +28,6 @@
 		"predis/predis": "^2"
 	},
 	"suggest": {
-		"predis/predis": "Adds support for the predis, PHP client library for Redis, backend"
+		"predis/predis": "Adds support for Predis - a PHP library providing a Redis result backend"
 	}
 }

@@ -6,5 +6,8 @@
 tests/**/output/**
 !tests/**/output/.gitkeep
 
+# Tests - Python compiled bytecode cache.
+*.pyc
+
 # Installed dependencies.
 vendor
