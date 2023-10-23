@@ -3,8 +3,15 @@ services:
     build: ../celery-app/
     environment:
       - DOCKER_TESTS=1
-    network_mode: host
+    networks:
+      - test_network
 
   redis-server:
     image: redis
-    network_mode: host
+    ports:
+      - 40001:6379
+    networks:
+      - test_network
+
+networks:
+  test_network:

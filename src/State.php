@@ -7,9 +7,7 @@ namespace Smuuf\CeleryForPhp;
  */
 abstract class State {
 
-	/**
-	 * @var string Task state is unknown (assumed pending since ID is known).
-	 */
+	/** @var string Task state is unknown (assumed pending since ID is known). */
 	public const PENDING = 'PENDING';
 
 	/** @var string Task was received by a worker (only used in events). */

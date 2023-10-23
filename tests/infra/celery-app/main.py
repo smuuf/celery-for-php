@@ -1,10 +1,13 @@
-from os import environ
 import time
 import celery
+from os import environ
 from typing import Union
 
 
-CONNECTION = 'redis://127.0.0.1'
+if bool(environ.get('DOCKER_TESTS')):
+    CONNECTION = 'redis://redis-server'
+else:
+    CONNECTION = 'redis://[::1]'
 BROKER = CONNECTION
 
 

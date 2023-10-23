@@ -20,7 +20,10 @@ function _compose {
 	docker compose -f ./tests/infra/docker/test-services.yml $@
 }
 
-_info "Starting test infrastructure services"
+_info "Maybe cleaning up previous test services"
+_compose down --timeout 0 1>/dev/null 2>&1 || true
+
+_info "Starting test services"
 _compose up \
 	--detach \
 	--quiet-pull \
@@ -35,8 +38,10 @@ php ./vendor/nette/tester/src/tester \
 		-C `# Use system-wide php-ini` \
 		--coverage ./tests/output/coverage.html \
 		--coverage-src ./src \
+		--log ./tests/output/tests.log \
 		-p phpdbg \
-		$TEST_PATH
+		$TEST_PATH \
+|| true # Continue even with failed tests.
 
-_info "Stopping test infrastructure services"
+_info "Stopping test services"
 _compose down --timeout 2

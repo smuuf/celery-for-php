@@ -13,7 +13,7 @@ use Smuuf\CeleryForPhp\State;
 
 require __DIR__ . '/../../bootstrap.php';
 
-$predis = new PredisClient(['host' => '127.0.0.1']);
+$predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
 $redisDriver = new PredisDriver($predis);
 
 $c = new Celery(
@@ -62,7 +62,7 @@ Assert::contains('celery-app/main.py', $tb, "Python source file should be presen
 //
 // Send the same task again, but now use AsyncResult::get() to wait for the result.
 // AsyncResult::get() also converts the detected exception into
-// CeleryTaskExecption, which is then thrown.
+// CeleryTaskException, which is then thrown.
 //
 
 $asyncResult = $c->sendTask($ts);

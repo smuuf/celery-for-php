@@ -26,13 +26,20 @@ class CeleryFactory {
 			},
 		);
 
-		$predis = new PredisClient(['host' => '127.0.0.1']);
+		$predis = new PredisClient(self::getPredisConnectionConfig());
 		$redisDriver = new PredisDriver($predis);
 		$broker = new RedisBroker($redisDriver);
 		$backend = new RedisBackend($redisDriver);
 
 		return new Celery($broker, $backend, $config);
 
+	}
+
+	public static function getPredisConnectionConfig(): array {
+		return [
+			'host' => '[::1]', // IPv6 localhost.
+			'port' => 40001,
+		];
 	}
 
 	/**

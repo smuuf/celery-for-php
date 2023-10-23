@@ -23,7 +23,7 @@ function _prepare_random_queue(): string {
 
 }
 
-$predis = new PredisClient(['host' => '127.0.0.1']);
+$predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
 $redisDriver = new PredisDriver($predis);
 $broker = new RedisBroker($redisDriver);
 

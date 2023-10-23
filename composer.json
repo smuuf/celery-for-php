@@ -18,8 +18,7 @@
 		 }
 	},
 	"require": {
-		"php": ">=8.1",
-		"ramsey/uuid": ">=4",
+		"php": ">=8.0",
 		"symfony/polyfill-php81": "^1.26"
 	},
 	"require-dev": {

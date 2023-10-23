@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Smuuf\CeleryForPhp\Messaging;
 
-use Ramsey\Uuid\Uuid;
 use Smuuf\CeleryForPhp\TaskSignature;
 use Smuuf\CeleryForPhp\Exc\InvalidArgumentException;
 use Smuuf\CeleryForPhp\Helpers\Functions;
@@ -68,7 +67,7 @@ class MessageBuilder {
 		$properties = [
 			'body_encoding' => 'base64',
 			'delivery_mode' => 2,
-			'delivery_tag' => Uuid::uuid4(),
+			'delivery_tag' => Functions::uuid4(),
 			'priority' => 0
 		];
 
@@ -180,7 +179,7 @@ class MessageBuilder {
 				'routing_key' => $si->getQueue(),
 			],
 			'priority' => 0,
-			'delivery_tag' => Uuid::uuid4(),
+			'delivery_tag' => Functions::uuid4(),
 		];
 
 		return new CeleryMessage($headers, $properties, $body, $serializer);

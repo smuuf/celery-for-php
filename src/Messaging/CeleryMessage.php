@@ -10,7 +10,7 @@ use Smuuf\CeleryForPhp\Interfaces\ISerializer;
 /**
  * Class for representing messages in accordance to Celery message protocol.
  *
- * &see https://docs.celeryq.dev/en/stable/internals/protocol.html
+ * @see https://docs.celeryq.dev/en/stable/internals/protocol.html
  */
 class CeleryMessage {
 

@@ -5,7 +5,7 @@
 A modern PHP client library for [Celery - Distributed Task Queue](https://docs.celeryq.dev).
 
 ## Requirements
-- PHP 8.1+
+- PHP 8.0+
 
 ## Example
 

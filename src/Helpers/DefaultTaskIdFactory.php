@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Smuuf\CeleryForPhp\Helpers;
 
-use Ramsey\Uuid\Uuid;
-
 use Smuuf\CeleryForPhp\Interfaces\ITaskIdFactory;
 
 class DefaultTaskIdFactory implements ITaskIdFactory {
@@ -15,7 +13,6 @@ class DefaultTaskIdFactory implements ITaskIdFactory {
 		array $args,
 		array $kwargs,
 	): string {
-		return sprintf('c4p:%s', Uuid::uuid4());
+		return sprintf('c4p:%s', Functions::uuid4());
 	}
-
 }

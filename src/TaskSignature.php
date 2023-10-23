@@ -153,7 +153,7 @@ class TaskSignature {
 	}
 
 	/**
-     * Set maximum number of retries before giving up.  If set to null, it will
+	 * Set maximum number of retries before giving up.  If set to null, it will
 	 * **never** stop retrying.
 	 */
 	public function setRetries(?int $retries): self {
@@ -188,7 +188,7 @@ class TaskSignature {
 	}
 
 	/**
-     * Set expiration time for task.
+	 * Set expiration time for task.
 	 */
 	public function setExpiration(string|\DateTimeInterface $time): self {
 		$self = clone $this;
@@ -238,7 +238,7 @@ class TaskSignature {
 	}
 
 	/**
-     * Set maximum number of retries before giving up. If set to null, it will
+	 * Set maximum number of retries before giving up. If set to null, it will
 	 * **never** stop retrying.
 	 */
 	private function rawSetRetries(?int $retries): void {
@@ -253,7 +253,7 @@ class TaskSignature {
 
 		if ($seconds < 0) {
 			throw new InvalidArgumentException(sprintf(
-				"Cannot set negative countdown (passed %d).",
+				"Cannot set negative countdown (passed %d)",
 				$seconds,
 			));
 		}
@@ -276,7 +276,7 @@ class TaskSignature {
 	}
 
 	/**
-     * Set expiration time for task.
+	 * Set expiration time for task.
 	 */
 	private function rawSetExpiration(string|\DateTimeInterface $time): void {
 		$this->expiration = self::ensureAtomDatetime($time);
