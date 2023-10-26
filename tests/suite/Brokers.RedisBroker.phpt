@@ -6,7 +6,7 @@ use Predis\Client as PredisClient;
 
 use Smuuf\CeleryForPhp\DeliveryInfo;
 use Smuuf\CeleryForPhp\Brokers\RedisBroker;
-use Smuuf\CeleryForPhp\Drivers\PredisDriver;
+use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
 use Smuuf\CeleryForPhp\Messaging\CeleryMessage;
 use Smuuf\CeleryForPhp\Serializers\JsonSerializer;
 
@@ -24,7 +24,7 @@ function _prepare_random_queue(): string {
 }
 
 $predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
-$redisDriver = new PredisDriver($predis);
+$redisDriver = new PredisRedisDriver($predis);
 $broker = new RedisBroker($redisDriver);
 
 // Whatever message. DeliveryInfo is important.

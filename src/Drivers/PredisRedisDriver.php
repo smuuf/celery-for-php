@@ -11,7 +11,7 @@ use Smuuf\CeleryForPhp\StrictObject;
 /**
  * Redis driver backed by Predis.
  */
-class PredisDriver implements IRedisDriver {
+class PredisRedisDriver implements IRedisDriver {
 
 	use StrictObject;
 

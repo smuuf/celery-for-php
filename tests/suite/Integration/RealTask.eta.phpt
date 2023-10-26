@@ -8,14 +8,14 @@ use Smuuf\CeleryForPhp\AsyncResult;
 use Smuuf\CeleryForPhp\TaskSignature;
 use Smuuf\CeleryForPhp\Backends\RedisBackend;
 use Smuuf\CeleryForPhp\Brokers\RedisBroker;
-use Smuuf\CeleryForPhp\Drivers\PredisDriver;
+use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
 use Smuuf\CeleryForPhp\Exc\InvalidArgumentException;
 use Smuuf\CeleryForPhp\State;
 
 require __DIR__ . '/../../bootstrap.php';
 
 $predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
-$redisDriver = new PredisDriver($predis);
+$redisDriver = new PredisRedisDriver($predis);
 
 $c = new Celery(
 	new RedisBroker($redisDriver),

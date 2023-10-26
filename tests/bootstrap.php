@@ -5,7 +5,7 @@ use Predis\Client as PredisClient;
 use Smuuf\CeleryForPhp\Celery;
 use Smuuf\CeleryForPhp\Config;
 use Smuuf\CeleryForPhp\Brokers\RedisBroker;
-use Smuuf\CeleryForPhp\Drivers\PredisDriver;
+use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
 use Smuuf\CeleryForPhp\Backends\RedisBackend;
 use Smuuf\CeleryForPhp\Serializers\JsonSerializer;
 
@@ -27,7 +27,7 @@ class CeleryFactory {
 		);
 
 		$predis = new PredisClient(self::getPredisConnectionConfig());
-		$redisDriver = new PredisDriver($predis);
+		$redisDriver = new PredisRedisDriver($predis);
 		$broker = new RedisBroker($redisDriver);
 		$backend = new RedisBackend($redisDriver);
 

@@ -7,7 +7,7 @@ use Smuuf\CeleryForPhp\State;
 use Smuuf\CeleryForPhp\Celery;
 use Smuuf\CeleryForPhp\TaskSignature;
 use Smuuf\CeleryForPhp\Brokers\RedisBroker;
-use Smuuf\CeleryForPhp\Drivers\PredisDriver;
+use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
 use Smuuf\CeleryForPhp\Backends\RedisBackend;
 use Smuuf\CeleryForPhp\Exc\CeleryTaskException;
 use Smuuf\CeleryForPhp\Helpers\Signals;
@@ -15,7 +15,7 @@ use Smuuf\CeleryForPhp\Helpers\Signals;
 require __DIR__ . '/../../bootstrap.php';
 
 $predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
-$redisDriver = new PredisDriver($predis);
+$redisDriver = new PredisRedisDriver($predis);
 
 $c = new Celery(
 	new RedisBroker($redisDriver),

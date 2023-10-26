@@ -8,12 +8,12 @@ use Smuuf\CeleryForPhp\State;
 use Smuuf\CeleryForPhp\TaskMetaResult;
 use Smuuf\CeleryForPhp\AsyncResult;
 use Smuuf\CeleryForPhp\Backends\RedisBackend;
-use Smuuf\CeleryForPhp\Drivers\PredisDriver;
+use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
 
 require __DIR__ . '/../bootstrap.php';
 
 $predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
-$redisDriver = new PredisDriver($predis);
+$redisDriver = new PredisRedisDriver($predis);
 
 $x = serialize($predis);
 $predis = unserialize($x);
