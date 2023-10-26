@@ -7,10 +7,26 @@ A modern PHP client library for [Celery - Distributed Task Queue](https://docs.c
 ## Requirements
 - PHP 8.0+
 
-## Example
+## Installation
+
+Install [celery-for-php](https://packagist.org/packages/smuuf/celery-for-php) via Composer.
+
+```bash
+composer require smuuf/celery-for-php
+```
+
+### Redis (Predis)
+
+If you want to use Redis as a broker and/or result backend, celery-for-php contains a Redis driver backed by [`Predis`](https://github.com/predis/predis).
+
+The Predis `Client` object then needs to be wrapped in our `Smuuf\CeleryForPhp\Drivers\PredisRedisDriver` driver object, which provides the necessary interface for celery-for-php's actual communication with Redis.
+
+## Example usage
 
 ```php
 <?php
+
+use Predis\Client as PredisClient;
 
 use Smuuf\CeleryForPhp\Celery;
 use Smuuf\CeleryForPhp\TaskSignature;
