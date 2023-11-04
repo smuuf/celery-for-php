@@ -2,6 +2,9 @@
 .vscode
 *.code-workspace
 
+# php-cs-fixer
+.php-cs-fixer.cache
+
 # Tests.
 tests/**/output/**
 !tests/**/output/.gitkeep
