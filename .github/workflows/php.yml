@@ -22,6 +22,9 @@ jobs:
         chmod +x ./bin/*.sh
     - name: Run tests
       run: ./bin/tests.sh
+    - name: Run code style analysis
+      continue-on-error: false
+      run: ./bin/code-style.sh
     - name: Run static analysis
       continue-on-error: true
       run: ./bin/phpstan.sh

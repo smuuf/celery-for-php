@@ -24,7 +24,8 @@
 	"require-dev": {
 		"nette/tester": "^2.4",
 		"phpstan/phpstan": "^1.8",
-		"predis/predis": "^2"
+		"predis/predis": "^2",
+		"friendsofphp/php-cs-fixer": "^3.37"
 	},
 	"suggest": {
 		"predis/predis": "Adds support for Predis - a PHP library providing a Redis result backend"
