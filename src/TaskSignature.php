@@ -164,7 +164,7 @@ class TaskSignature {
 
 	/**
 	 * Countdown is a shortcut to set ETA by seconds into the future.
-	 * See method TaskSignature::setEta()
+	 * See method TaskSignature::setEta().
 	 */
 	public function setCountdown(int $seconds): self {
 		$self = clone $this;
@@ -223,7 +223,8 @@ class TaskSignature {
 
 		if (!array_is_list($args)) {
 			throw new InvalidArgumentException(
-				"Args must be passed as an indexed array");
+				"Args must be passed as an indexed array",
+			);
 		}
 
 		$this->args = $args;
@@ -247,7 +248,7 @@ class TaskSignature {
 
 	/**
 	 * Countdown is a shortcut to set ETA by seconds into the future.
-	 * See method TaskSignature::setEta()
+	 * See method TaskSignature::setEta().
 	 */
 	private function rawSetCountdown(int $seconds): void {
 
@@ -292,7 +293,8 @@ class TaskSignature {
 
 			if (!strtotime($time)) {
 				throw new InvalidArgumentException(sprintf(
-					"Cannot convert '%s' to datetime", $time
+					"Cannot convert '%s' to datetime",
+					$time,
 				));
 			}
 
@@ -305,7 +307,8 @@ class TaskSignature {
 		}
 
 		throw new InvalidArgumentException(sprintf(
-			"Cannot convert '%s' to datetime", (string) $time,
+			"Cannot convert '%s' to datetime",
+			(string) $time,
 		));
 
 	}

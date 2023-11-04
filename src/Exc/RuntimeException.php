@@ -2,6 +2,4 @@
 
 namespace Smuuf\CeleryForPhp\Exc;
 
-class RuntimeException extends \RuntimeException implements ICeleryForPhpException {
-
-}
+class RuntimeException extends \RuntimeException implements ICeleryForPhpException {}

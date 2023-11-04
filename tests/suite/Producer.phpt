@@ -13,7 +13,7 @@ use Smuuf\CeleryForPhp\TaskSignature;
 
 require __DIR__ . '/../bootstrap.php';
 
-$fakeBroker = new class implements IBroker {
+$fakeBroker = new class() implements IBroker {
 
 	private $last = [];
 

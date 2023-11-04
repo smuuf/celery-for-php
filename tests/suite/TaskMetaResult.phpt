@@ -4,7 +4,7 @@ use Smuuf\CeleryForPhp\Exc\InvalidArgumentException;
 use Tester\Assert;
 
 use Smuuf\CeleryForPhp\State;
-use Smuuf\CeleryForPhp\TaskMetaResult as TaskMetaResult;
+use Smuuf\CeleryForPhp\TaskMetaResult;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -33,7 +33,7 @@ foreach ($empties as $tm) {
 $tm = new TaskMetaResult(
 	TASK_ID,
 	State::STARTED,
-	['pid' => 123456, 'hostname' => 'some_machine']
+	['pid' => 123456, 'hostname' => 'some_machine'],
 );
 Assert::same(TASK_ID, $tm->getTaskId());
 Assert::same(State::STARTED, $tm->getState());

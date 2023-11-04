@@ -5,7 +5,7 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
-$o = new class {
+$o = new class() {
 
 	use StrictObject;
 

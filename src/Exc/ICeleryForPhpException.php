@@ -2,6 +2,4 @@
 
 namespace Smuuf\CeleryForPhp\Exc;
 
-interface ICeleryForPhpException extends \Throwable {
-
-}
+interface ICeleryForPhpException extends \Throwable {}
