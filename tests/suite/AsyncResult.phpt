@@ -29,7 +29,7 @@ class TempBackend implements IResultBackend {
 
 		return TaskMetaResult::fromArray(
 			$taskId,
-			$this->storage[$taskId] ?? []
+			$this->storage[$taskId] ?? [],
 		);
 
 	}
@@ -38,7 +38,7 @@ class TempBackend implements IResultBackend {
 		string $taskId,
 		$result,
 		string $state,
-		?string $traceback = null
+		?string $traceback = null,
 	): void {
 
 		self::$callCounter[__METHOD__]++;
@@ -63,7 +63,7 @@ class TempBackend implements IResultBackend {
 
 }
 
-$backend = new TempBackend;
+$backend = new TempBackend();
 
 //
 // Test getting a result from non-existing task ID.
@@ -91,7 +91,7 @@ const TASK_RESULT = 'whatever result 🌭';
 $backend->storeResult(
 	TASK_ID,
 	TASK_RESULT,
-	TASK_STATE
+	TASK_STATE,
 );
 
 //
@@ -137,7 +137,7 @@ Assert::noError(function() use ($result) {
 
 Assert::true(
 	$backend::$callCounter['TempBackend::getTaskMetaResult'] > $called,
-	'Unserialized AsyncResult with a non-ready state still fetches task meta info.'
+	'Unserialized AsyncResult with a non-ready state still fetches task meta info.',
 );
 
 // AsyncResult must not have an empty task ID.

@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Smuuf\CeleryForPhp;
 
-use Smuuf\CeleryForPhp\TaskMetaResult;
 use Smuuf\CeleryForPhp\Exc\RuntimeException;
 use Smuuf\CeleryForPhp\Exc\CeleryTaskException;
 use Smuuf\CeleryForPhp\Exc\CeleryTimeoutException;
 use Smuuf\CeleryForPhp\Exc\InvalidArgumentException;
-use Smuuf\CeleryForPhp\Helpers\Functions as Functions;
+use Smuuf\CeleryForPhp\Helpers\Functions;
 use Smuuf\CeleryForPhp\Helpers\Signals;
 use Smuuf\CeleryForPhp\Interfaces\IAsyncResult;
 use Smuuf\CeleryForPhp\Interfaces\IResultBackend;

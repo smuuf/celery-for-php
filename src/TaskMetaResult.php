@@ -74,8 +74,8 @@ class TaskMetaResult {
 		$missingFields = array_diff(self::EXPECTED_FIELDS, array_keys($data));
 		if ($missingFields) {
 			throw new InvalidArgumentException(sprintf(
-				"Unable to create TaskMetaResult from invalid data. " .
-				"Missing fields: " . implode(',', $missingFields)
+				"Unable to create TaskMetaResult from invalid data. "
+				. "Missing fields: " . implode(',', $missingFields),
 			));
 		}
 

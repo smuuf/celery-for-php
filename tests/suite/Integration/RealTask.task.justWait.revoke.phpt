@@ -56,7 +56,7 @@ Assert::same(State::PENDING, $asyncResult->getState(), "A running task is PENDIN
 // Wait for result.
 $result = $asyncResult->get();
 Assert::same(State::SUCCESS, $asyncResult->getState(), "State is a SUCCESS");
-	Assert::same('YAY', $result, "Even revoked (without termination) task finished with a result");
+Assert::same('YAY', $result, "Even revoked (without termination) task finished with a result");
 
 //
 // Just revoke. (with track_started=True)
@@ -75,7 +75,7 @@ Assert::same(State::STARTED, $asyncResult->getState(), "A running task is STARTE
 // Wait for result.
 $result = $asyncResult->get();
 Assert::same(State::SUCCESS, $asyncResult->getState(), "State is a SUCCESS");
-	Assert::same('YAY_tracked_start', $result, "Even revoked (without termination) task finished with a result");
+Assert::same('YAY_tracked_start', $result, "Even revoked (without termination) task finished with a result");
 
 //
 // Revoke + terminate (without track_started=True)

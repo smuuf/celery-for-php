@@ -16,7 +16,7 @@ $sig = (new TaskSignature('celery_for_php.tasks.tests.some_task_name'))
 	->setQueue('some_very_queue')
 	->setCountdown(120)
 	->setExpiration('+2 hours')
-	->setArgs([1,2,3])
+	->setArgs([1, 2, 3])
 	->setKwargs(['arg_1' => 'hello', 'arg_2' => 'there'])
 	->setRetries(10)
 	->setTimeLimit(null, 3600);
@@ -36,4 +36,3 @@ Assert::exception(
 	InvalidArgumentException::class,
 	'Cannot format task message as unknown version 99987654',
 );
-

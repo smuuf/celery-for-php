@@ -13,7 +13,7 @@ use Smuuf\CeleryForPhp\Interfaces\IResultBackend;
 
 require __DIR__ . '/../bootstrap.php';
 
-$fakeBroker = new class implements IBroker {
+$fakeBroker = new class() implements IBroker {
 
 	private $last = [];
 
@@ -33,7 +33,7 @@ $fakeBroker = new class implements IBroker {
 
 };
 
-$fakeResultBackend = new class implements IResultBackend {
+$fakeResultBackend = new class() implements IResultBackend {
 
 	public function getTaskMetaResult(string $taskId): TaskMetaResult {
 		return new TaskMetaResult('meh');

@@ -68,7 +68,7 @@ class MessageBuilder {
 			'body_encoding' => 'base64',
 			'delivery_mode' => 2,
 			'delivery_tag' => Functions::uuid4(),
-			'priority' => 0
+			'priority' => 0,
 		];
 
 		return new CeleryMessage($headers, $properties, $body, $this->serializer);

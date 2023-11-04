@@ -14,10 +14,16 @@ class Config {
 	use StrictObject;
 
 	public static function createDefault(): self {
-		return new self;
+		return new self();
 	}
 
 	/**
+	 * @param int $taskMessageProtocolVersion
+	 *     Celery task message protocol version to use.
+	 *     See https://docs.celeryq.dev/en/stable/internals/protocol.html
+	 * @param ISerializer $taskSerializer
+	 *     Serializer to use when serializing task message body. If not
+	 *     specified, `JsonSerializer` is used by default.
 	 * @param null|ITaskIdFactory $taskIdFactory
 	 *     Optional custom task ID builder. If not specified, a default
 	 *     factory will be used.
@@ -25,12 +31,6 @@ class Config {
 	 *     Name of the Celery control exchange (used for sending control commands,
 	 *     such as 'revoke', to Celery workers).
 	 *     Default value is 'celery' but can be specified to some other name.
-	 * @param int $taskMessageProtocolVersion
-	 *     Celery task message protocol version to use.
-	 *     See https://docs.celeryq.dev/en/stable/internals/protocol.html
-	 * @param ISerializer $taskSerializer
-	 *     Serializer to use when serializing task message body. If not
-	 *     specified, `JsonSerializer` is used by default.
 	 */
 	public function __construct(
 		private int $taskMessageProtocolVersion = MessageBuilder::MESSAGE_PROTOCOL_V2,

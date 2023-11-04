@@ -5,6 +5,11 @@ cd $(dirname $0)/..
 ARG="$1"
 [[ $ARG == "--fix" ]] && COMMAND="fix" || COMMAND="check"
 
+# php-cs-fixer may lag behind with supporting newest versions of PHP and
+# would complain when running under them, which would needlessly fail our
+# GitHub Action. So we'll tell php-cs-fixer to skip that check.
+export PHP_CS_FIXER_IGNORE_ENV=1
+
 ./vendor/bin/php-cs-fixer $COMMAND --diff -vvv
 EXITCODE=$?
 
