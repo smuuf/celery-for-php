@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @dataprovider testMatrixBuilder.php
+ */
+
 use Tester\Assert;
 
 use Smuuf\CeleryForPhp\State;
@@ -7,11 +11,12 @@ use Smuuf\CeleryForPhp\TaskSignature;
 
 require __DIR__ . '/../../bootstrap.php';
 
-
-$c = CeleryFactory::getCelery();
+$testArgs = \Tester\Environment::loadData();
+$c = TestCeleryFactory::getCelery($testArgs);
 
 // Call real-life Python Celery's task.
 $ts = (new TaskSignature('main.zip_dicts'))
+	->setQueue(TestCeleryFactory::buildTestQueueName($testArgs))
 	->setKwargs([
 		'a' => [4, true, null, 'ahoj'],
 		'b' => ['xxx', 'yyy', ['kve', 'bhe'], ['vole']],

@@ -13,5 +13,20 @@ services:
     networks:
       - test_network
 
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - 40002:5672
+      - 40012:15672 # RabbitMQ web interface.
+    networks:
+      - test_network
+    user: rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics -q status && rabbitmq-diagnostics -q check_local_alarms
+      #test: rabbitmq-diagnostics -q ping
+      interval: 1s
+      timeout: 60s
+      retries: 30
+
 networks:
   test_network:

@@ -4,11 +4,10 @@ from os import environ
 from typing import Union
 
 
-if bool(environ.get('DOCKER_TESTS')):
-    CONNECTION = 'redis://redis-server'
-else:
-    CONNECTION = 'redis://[::1]'
-BROKER = CONNECTION
+broker_uri = environ.get('c4p_tests_py_broker_hostname')
+backend_uri = environ.get('c4p_tests_py_backend_hostname')
+# broker_uri = 'pyamqp://guest@[::1]:40002'
+# backend_uri = 'redis://[::1]:40001'
 
 
 class Config:
@@ -16,7 +15,7 @@ class Config:
 
 
 number = Union[int, float]
-app = celery.Celery('tasks', backend=CONNECTION, broker=BROKER,
+app = celery.Celery('tasks', backend=backend_uri, broker=broker_uri,
                     config_source=Config)
 
 
@@ -49,3 +48,6 @@ def just_wait_track_started(*args, **kwargs):
 # eta = datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
 # r = just_wait.apply_async(args=[10], kwargs={'retval': True}, eta=None)
 # r.revoke()
+
+# worker = app.Worker()
+# worker.start()

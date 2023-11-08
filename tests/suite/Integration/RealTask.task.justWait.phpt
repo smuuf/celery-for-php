@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @dataprovider testMatrixBuilder.php
+ */
+
 use Tester\Assert;
 
 use Smuuf\CeleryForPhp\State;
@@ -8,11 +12,13 @@ use Smuuf\CeleryForPhp\Exc\CeleryTimeoutException;
 
 require __DIR__ . '/../../bootstrap.php';
 
-$c = CeleryFactory::getCelery();
+$testArgs = \Tester\Environment::loadData();
+$c = TestCeleryFactory::getCelery($testArgs);
 
 // Call real-life Python Celery's task.
-$ts = new TaskSignature('main.just_wait');
-$ts = $ts->setArgs([1]);
+$ts = (new TaskSignature('main.just_wait'))
+	->setQueue(TestCeleryFactory::buildTestQueueName($testArgs))
+	->setArgs([1]);
 
 $asyncResult = $c->sendTask($ts);
 $asyncResult->get(); // Wait for result.
@@ -20,8 +26,9 @@ Assert::same(State::SUCCESS, $asyncResult->getState(), "We waited and now the st
 Assert::same(null, $asyncResult->getResult(), "Task returned expected result");
 
 // Call real-life Python Celery's task.
-$ts = new TaskSignature('main.just_wait');
-$ts = $ts->setArgs([5, "my expected result"]);
+$ts = (new TaskSignature('main.just_wait'))
+	->setQueue(TestCeleryFactory::buildTestQueueName($testArgs))
+	->setArgs([5, "my expected result"]);
 
 $asyncResult = $c->sendTask($ts);
 

@@ -1,29 +1,24 @@
 <?php
 
-use Tester\Assert;
-use Predis\Client as PredisClient;
+/**
+ * @dataprovider testMatrixBuilder.php
+ */
 
-use Smuuf\CeleryForPhp\Celery;
+use Tester\Assert;
+
+use Smuuf\CeleryForPhp\State;
 use Smuuf\CeleryForPhp\AsyncResult;
 use Smuuf\CeleryForPhp\TaskSignature;
-use Smuuf\CeleryForPhp\Backends\RedisBackend;
-use Smuuf\CeleryForPhp\Brokers\RedisBroker;
-use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
 use Smuuf\CeleryForPhp\Exc\InvalidArgumentException;
-use Smuuf\CeleryForPhp\State;
 
 require __DIR__ . '/../../bootstrap.php';
 
-$predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
-$redisDriver = new PredisRedisDriver($predis);
-
-$c = new Celery(
-	new RedisBroker($redisDriver),
-	new RedisBackend($redisDriver),
-);
+$testArgs = \Tester\Environment::loadData();
+$c = TestCeleryFactory::getCelery($testArgs);
 
 // Call real-life Python Celery's task.
-$ts = new TaskSignature('main.add');
+$ts = (new TaskSignature('main.add'))
+	->setQueue(TestCeleryFactory::buildTestQueueName($testArgs));
 
 function test_task_with_eta($eta, int $wait): void {
 

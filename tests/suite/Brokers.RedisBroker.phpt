@@ -2,8 +2,6 @@
 
 use Tester\Assert;
 
-use Predis\Client as PredisClient;
-
 use Smuuf\CeleryForPhp\DeliveryInfo;
 use Smuuf\CeleryForPhp\Brokers\RedisBroker;
 use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
@@ -14,18 +12,21 @@ require __DIR__ . '/../bootstrap.php';
 
 function _prepare_random_queue(): string {
 
-	global $predis;
+	global $redisDriver;
 	$queue = 'celery-for-php.test-queue.' . md5(random_bytes(8));
 
 	// Make sure the Redis key does not exist first.
-	$predis->del($queue);
+	$redisDriver->del($queue);
 	return $queue;
 
 }
 
-$predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
-$redisDriver = new PredisRedisDriver($predis);
+$redisDriver = TestCeleryFactory::getPredisRedisDriver();
 $broker = new RedisBroker($redisDriver);
+$predis = Assert::with($redisDriver, function() {
+	/** @var PredisRedisDriver $this */
+	return $this->predis;
+});
 
 // Whatever message. DeliveryInfo is important.
 $queue = _prepare_random_queue();

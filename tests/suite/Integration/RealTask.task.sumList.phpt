@@ -1,29 +1,24 @@
 <?php
 
-use Tester\Assert;
-use Predis\Client as PredisClient;
+/**
+ * @dataprovider testMatrixBuilder.php
+ */
 
-use Smuuf\CeleryForPhp\Celery;
-use Smuuf\CeleryForPhp\TaskSignature;
-use Smuuf\CeleryForPhp\Backends\RedisBackend;
-use Smuuf\CeleryForPhp\Brokers\RedisBroker;
-use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
-use Smuuf\CeleryForPhp\Exc\CeleryTaskException;
+use Tester\Assert;
+
 use Smuuf\CeleryForPhp\State;
+use Smuuf\CeleryForPhp\TaskSignature;
+use Smuuf\CeleryForPhp\Exc\CeleryTaskException;
 
 require __DIR__ . '/../../bootstrap.php';
 
-$predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
-$redisDriver = new PredisRedisDriver($predis);
-
-$c = new Celery(
-	new RedisBroker($redisDriver),
-	new RedisBackend($redisDriver),
-);
+$testArgs = \Tester\Environment::loadData();
+$c = TestCeleryFactory::getCelery($testArgs);
 
 // Call real-life Python Celery's task.
-$ts = new TaskSignature('main.sum_list');
-$ts = $ts->setArgs([[1, 2, 3]]);
+$ts = (new TaskSignature('main.sum_list'))
+	->setQueue(TestCeleryFactory::buildTestQueueName($testArgs))
+	->setArgs([[1, 2, 3]]);
 
 $asyncResult = $c->sendTask($ts);
 $asyncResult->get(); // Wait for result.
@@ -31,16 +26,18 @@ Assert::same(State::SUCCESS, $asyncResult->getState(), "We waited and now the st
 Assert::same(6, $asyncResult->getResult(), "Task returned expected result");
 
 // Call real-life Python Celery's task.
-$ts = new TaskSignature('main.sum_list');
-$ts = $ts->setArgs([[1, 2, 3, 10, 20, 30]]);
+$ts = (new TaskSignature('main.sum_list'))
+	->setQueue(TestCeleryFactory::buildTestQueueName($testArgs))
+	->setArgs([[1, 2, 3, 10, 20, 30]]);
 
 $asyncResult = $c->sendTask($ts);
 Assert::same(66, $asyncResult->get()); // Wait for result - which is returned directly.
 Assert::same(State::SUCCESS, $asyncResult->getState(), "We waited and now the state is a SUCCESS");
 
 // Call real-life Python Celery's task.
-$ts = new TaskSignature('main.sum_list');
-$ts = $ts->setArgs([[1, 'aaa', 'bbb']]);
+$ts = (new TaskSignature('main.sum_list'))
+	->setQueue(TestCeleryFactory::buildTestQueueName($testArgs))
+	->setArgs([[1, 'aaa', 'bbb']]);
 
 //
 // AsyncResult::getResult() does not convert Celery worker's exception to

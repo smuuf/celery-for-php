@@ -1,38 +1,34 @@
 <?php
 
+/**
+ * @dataprovider testMatrixBuilder.php
+ */
+
 use Tester\Assert;
-use Predis\Client as PredisClient;
 
 use Smuuf\CeleryForPhp\State;
-use Smuuf\CeleryForPhp\Celery;
 use Smuuf\CeleryForPhp\TaskSignature;
-use Smuuf\CeleryForPhp\Brokers\RedisBroker;
-use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
-use Smuuf\CeleryForPhp\Backends\RedisBackend;
 use Smuuf\CeleryForPhp\Exc\CeleryTaskException;
 use Smuuf\CeleryForPhp\Helpers\Signals;
 
 require __DIR__ . '/../../bootstrap.php';
 
-$predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
-$redisDriver = new PredisRedisDriver($predis);
-
-$c = new Celery(
-	new RedisBroker($redisDriver),
-	new RedisBackend($redisDriver),
-);
+$testArgs = \Tester\Environment::loadData();
+$c = TestCeleryFactory::getCelery($testArgs);
 
 //
 // Use "real life" Celery tasks.
 //
 
 $siNormal = new TaskSignature(
+	queue: TestCeleryFactory::buildTestQueueName($testArgs),
 	taskName: 'main.just_wait',
 	args: [5],
 	kwargs: ['retval' => 'YAY'],
 );
 
 $siTracked = new TaskSignature(
+	queue: TestCeleryFactory::buildTestQueueName($testArgs),
 	// The task itself has 'track_started=True' specified.
 	taskName: 'main.just_wait_track_started',
 	args: [5],
