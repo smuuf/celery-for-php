@@ -6,10 +6,6 @@ cd $(dirname $0)/..
 
 TEST_PATH="${1:-./tests/suite}"
 
-# Test configuration
-export CELERYFORPHP_TASK_SERIALIZER='json'
-export CELERYFORPHP_TASK_MESSAGE_PROTOCOL_VERSION=2
-
 function _info {
 	echo -e "▄"
 	echo -e "█ $@"
@@ -26,12 +22,9 @@ _compose down --timeout 0 1>/dev/null 2>&1 || true
 _info "Starting test services"
 _compose up \
 	--detach \
+	--wait \
 	--quiet-pull \
 	--build
-
-_info "Tests will use this configuration:"
-echo CELERYFORPHP_TASK_SERIALIZER=$CELERYFORPHP_TASK_SERIALIZER
-echo CELERYFORPHP_TASK_MESSAGE_PROTOCOL_VERSION=$CELERYFORPHP_TASK_MESSAGE_PROTOCOL_VERSION
 
 _info "Running tests"
 php ./vendor/nette/tester/src/tester \

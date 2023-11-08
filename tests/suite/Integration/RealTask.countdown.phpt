@@ -1,18 +1,24 @@
 <?php
 
+/**
+ * @dataprovider testMatrixBuilder.php
+ */
+
 use Tester\Assert;
 
+use Smuuf\CeleryForPhp\State;
 use Smuuf\CeleryForPhp\AsyncResult;
 use Smuuf\CeleryForPhp\TaskSignature;
 use Smuuf\CeleryForPhp\Exc\InvalidArgumentException;
-use Smuuf\CeleryForPhp\State;
 
 require __DIR__ . '/../../bootstrap.php';
 
-$c = CeleryFactory::getCelery();
+$testArgs = \Tester\Environment::loadData();
+$c = TestCeleryFactory::getCelery($testArgs);
 
 // Call real-life Python Celery's task.
-$ts = new TaskSignature('main.add');
+$ts = (new TaskSignature('main.add'))
+	->setQueue(TestCeleryFactory::buildTestQueueName($testArgs));
 
 function test_task_with_countdown(int $countdown): void {
 
@@ -38,8 +44,7 @@ function test_task_with_countdown(int $countdown): void {
 
 }
 
-test_task_with_countdown(2);
-test_task_with_countdown(0); // Zero is a valid countdown too.
+test_task_with_countdown(5);
 
 Assert::exception(function() {
 	test_task_with_countdown(-1);

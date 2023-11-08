@@ -2,29 +2,21 @@
 
 use Tester\Assert;
 
-use Predis\Client as PredisClient;
-
 use Smuuf\CeleryForPhp\State;
 use Smuuf\CeleryForPhp\TaskMetaResult;
 use Smuuf\CeleryForPhp\AsyncResult;
 use Smuuf\CeleryForPhp\Backends\RedisBackend;
-use Smuuf\CeleryForPhp\Drivers\PredisRedisDriver;
 
 require __DIR__ . '/../bootstrap.php';
 
-$predis = new PredisClient(CeleryFactory::getPredisConnectionConfig());
-$redisDriver = new PredisRedisDriver($predis);
-
-$x = serialize($predis);
-$predis = unserialize($x);
-
+$redisDriver = TestCeleryFactory::getPredisRedisDriver();
 $backend = new RedisBackend($redisDriver);
 
 $testTaskId = 'celery-for-php-tests-very_task_id_123456789';
 $testResultKey = RedisBackend::TASK_KEYPREFIX . $testTaskId;
+
 // Delete test result from previous test runs.
-$predis->set('aaa', 'bbb');
-$predis->del($testResultKey);
+$redisDriver->del($testResultKey);
 
 //
 // Fetching task metadata without any present will result in a void "pending"

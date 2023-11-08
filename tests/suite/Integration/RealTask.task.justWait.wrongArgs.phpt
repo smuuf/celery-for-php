@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @dataprovider testMatrixBuilder.php
+ */
+
 use Tester\Assert;
 
 use Smuuf\CeleryForPhp\TaskSignature;
@@ -8,9 +12,11 @@ use Smuuf\CeleryForPhp\Exc\InvalidArgumentException;
 
 require __DIR__ . '/../../bootstrap.php';
 
-$c = CeleryFactory::getCelery();
+$testArgs = \Tester\Environment::loadData();
+$c = TestCeleryFactory::getCelery($testArgs);
 
-$base = new TaskSignature('main.just_wait');
+$base = (new TaskSignature('main.just_wait'))
+	->setQueue(TestCeleryFactory::buildTestQueueName($testArgs));
 $ts = $base->setArgs([1, 2, 3, 4]);
 
 $asyncResult = $c->sendTask($ts);

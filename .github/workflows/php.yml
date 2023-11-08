@@ -10,6 +10,12 @@ jobs:
     strategy:
           matrix:
             php-versions: ['8.0', '8.1', '8.2', '8.3', 'latest']
+            c4p-tests-task-message-protocol-version: ['1', '2']
+            c4p-tests-broker-driver:
+              - PredisRedisDriver
+              - PhpAmqpLibAmqpDriver
+            c4p-tests-backend-driver:
+              - PredisRedisDriver
           fail-fast: false
     steps:
     - uses: actions/checkout@v1
@@ -24,6 +30,10 @@ jobs:
         chmod +x ./bin/*.sh
     - name: Run tests
       run: ./bin/tests.sh
+      env:
+        C4P_TESTS_TASK_MESSAGE_PROTOCOL_VERSION: ${{ matrix.c4p-tests-task-message-protocol-version }}
+        C4P_TESTS_BROKER_DRIVER: ${{ matrix.c4p-tests-broker-driver }}
+        C4P_TESTS_BACKEND_DRIVER: ${{ matrix.c4p-tests-backend-driver }}
     - name: Run code style analysis
       continue-on-error: false
       run: ./bin/code-style.sh
