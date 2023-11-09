@@ -22,7 +22,6 @@ return (new PhpCsFixer\Config())
 		'binary_operator_spaces' => true,
 		'new_with_parentheses' => true,
 		'no_space_around_double_colon' => true,
-		'long_to_shorthand_operator' => true,
 		'concat_space' => [
 			'spacing' => 'one',
 		],
