@@ -46,6 +46,9 @@ class RedisBroker implements IBroker {
 
 	}
 
+	/**
+	 * @return array<string, mixed>
+	 */
 	private function getFinalMessageWithEncoding(
 		CeleryMessage $msg,
 	): array {

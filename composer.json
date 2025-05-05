@@ -22,8 +22,8 @@
 		"symfony/polyfill-php81": "^1.26"
 	},
 	"require-dev": {
-		"nette/tester": "^2.4",
-		"phpstan/phpstan": "^1.8",
+		"nette/tester": "^2.5",
+		"phpstan/phpstan": "^2.1",
 		"predis/predis": "^2",
 		"php-amqplib/php-amqplib": "^3.6",
 		"friendsofphp/php-cs-fixer": "^3.37"

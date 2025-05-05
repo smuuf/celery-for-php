@@ -61,6 +61,14 @@ class TaskMetaResult {
 
 	/**
 	 * Build a new `TaskMetaResult` object from an array.
+	 *
+	 * @param ?array{
+	 *     task_id: string,
+	 *     status: State::*,
+	 *     result: mixed,
+	 *     date_done: ?string,
+	 *     traceback: ?string,
+	 * } $data
 	 */
 	public static function fromArray(
 		string $taskId,
@@ -89,7 +97,7 @@ class TaskMetaResult {
 
 	}
 
-	public static function nullObject(string $taskId) {
+	public static function nullObject(string $taskId): self {
 		return new self($taskId);
 	}
 

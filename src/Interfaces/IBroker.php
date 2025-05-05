@@ -10,6 +10,6 @@ interface IBroker {
 	public function publish(
 		CeleryMessage $msg,
 		DeliveryInfo $deliveryInfo,
-	);
+	): void;
 
 }

@@ -14,6 +14,9 @@ class JsonSerializer implements ISerializer {
 		return json_encode($input, JSON_UNESCAPED_SLASHES);
 	}
 
+	/**
+	 * @return array<mixed>
+	 */
 	public function decode(string $input): array {
 		return json_decode($input, associative: true);
 	}
