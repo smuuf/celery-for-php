@@ -26,6 +26,9 @@ _compose up \
 	--quiet-pull \
 	--build
 
+# NOTE: We would use Nette Tester argument "-p phpdbg" to run tests with phpdbg,
+# but phpdbg8.1 fails with segfaults. When we're past PHP 8.1, we can use phpdbg
+# again.
 TESTS_EXIST_CODE=0
 _info "Running tests"
 php ./vendor/nette/tester/src/tester \
@@ -33,9 +36,9 @@ php ./vendor/nette/tester/src/tester \
 		--coverage ./tests/output/coverage.html \
 		--coverage-src ./src \
 		--log ./tests/output/tests.log \
-		-p phpdbg \
 		$TEST_PATH \
 || TESTS_EXIST_CODE=$? # Continue even with failed tests but obtain exit code.
+
 _info "Tests exit code: $TESTS_EXIST_CODE"
 
 _info "Stopping test services"

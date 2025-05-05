@@ -24,11 +24,12 @@
 	"require-dev": {
 		"nette/tester": "^2.5",
 		"phpstan/phpstan": "^2.1",
-		"predis/predis": "^2",
-		"php-amqplib/php-amqplib": "^3.6",
+		"predis/predis": "^3.0",
+		"php-amqplib/php-amqplib": "^3.7",
 		"friendsofphp/php-cs-fixer": "^3.37"
 	},
 	"suggest": {
-		"predis/predis": "Adds support for Predis - a PHP library providing a Redis result backend"
+		"predis/predis": "Adds support for Predis - a PHP library providing a Redis broker and result backend",
+		"php-amqplib/php-amqplib": "Adds support for php-amqplib - a PHP library providing RabbitMQ broker"
 	}
 }
