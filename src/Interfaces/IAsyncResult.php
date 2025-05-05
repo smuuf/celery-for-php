@@ -6,7 +6,7 @@ interface IAsyncResult {
 
 	public function getTaskId(): string;
 	public function getState(): string;
-	public function getResult();
+	public function getResult(): mixed;
 
 	public function isReady(): bool;
 	public function isSuccessful(): bool;

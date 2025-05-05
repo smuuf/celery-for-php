@@ -14,6 +14,11 @@ use Smuuf\CeleryForPhp\Interfaces\ISerializer;
  */
 class CeleryMessage {
 
+	/**
+	 * @param array<string, mixed> $headers
+	 * @param array<string, mixed> $properties
+	 * @param array<mixed> $body
+	 */
 	public function __construct(
 		private array $headers,
 		private array $properties,
@@ -21,14 +26,23 @@ class CeleryMessage {
 		private ISerializer $serializer,
 	) {}
 
+	/**
+	 * @return array<string, mixed>
+	 */
 	public function getHeaders(): array {
 		return $this->headers;
 	}
 
+	/**
+	 * @return array<string, mixed>
+	 */
 	public function getProperties(): array {
 		return $this->properties;
 	}
 
+	/**
+	 * @return array<mixed>
+	 */
 	public function getBody(): array {
 		return $this->body;
 	}
@@ -46,6 +60,15 @@ class CeleryMessage {
 
 	}
 
+	/**
+	 * @return array{
+	 *     'content-encoding': 'utf-8',
+	 *     'content-type': string,
+	 *     body: string,
+	 *     headers: array<string, mixed>,
+	 *     properties: array<string, mixed>,
+	 * }
+	 */
 	public function asArray(): array {
 
 		return [

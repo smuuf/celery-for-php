@@ -58,6 +58,7 @@ class TaskSignature {
 	/**
 	 * @param ?list<mixed> $args
 	 * @param ?array<string, mixed> $kwargs
+	 * @param array{?int, ?int} $timeLimit
 	 */
 	public function __construct(
 		protected string $taskName,
@@ -120,6 +121,9 @@ class TaskSignature {
 		return $this->expiration;
 	}
 
+	/**
+	 * @return array{?int, ?int}
+	 */
 	public function getTimeLimit(): ?array {
 		return $this->timeLimit;
 	}
@@ -287,7 +291,7 @@ class TaskSignature {
 		$this->timeLimit = [$soft, $hard];
 	}
 
-	protected static function ensureAtomDatetime($time): string {
+	protected static function ensureAtomDatetime(mixed $time): string {
 
 		if (is_string($time)) {
 

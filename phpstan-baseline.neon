@@ -1,0 +1,18 @@
+parameters:
+	ignoreErrors:
+		#
+		# Ignore some of the PhpAmqpLib magic behavior.
+		#
+		# As far as I can see the AMQPProtocolChannelException _can_ be thrown.
+		#
+		-
+			message: '#^Dead catch \- PhpAmqpLib\\Exception\\AMQPProtocolChannelException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: src/Drivers/PhpAmqpLibAmqpDriver.php
+
+		-
+			message: '#^Method Smuuf\\CeleryForPhp\\Drivers\\PhpAmqpLibAmqpDriver\:\:purgeQueue\(\) has PhpAmqpLib\\Exception\\AMQPProtocolChannelException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: src/Drivers/PhpAmqpLibAmqpDriver.php

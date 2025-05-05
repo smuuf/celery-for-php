@@ -6,6 +6,10 @@ namespace Smuuf\CeleryForPhp\Drivers;
 
 interface IAmqpDriver {
 
+	/**
+	 * @param array<string, mixed> $properties
+	 * @param array<string, mixed> $headers
+	 */
 	public function publish(
 		string $queue,
 		string $exchange,

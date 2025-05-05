@@ -1,0 +1,12 @@
+parameters:
+	level: 6
+	paths:
+		- src
+	# We want to, for example, hint our arg types as 'list<int>', but for public
+	# interfaces we can't be sure the caller actually sends a list, so we want
+	# to check it with array_is_list() anyway. But unless we set this flag,
+	# PHPStan complains about a useless check ("will always evaluate to true").
+	treatPhpDocTypesAsCertain: false
+
+includes:
+	- phpstan-baseline.neon

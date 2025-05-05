@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Smuuf\CeleryForPhp\Drivers;
 
 use Predis\Client as PredisClient;
+use Predis\Connection\NodeConnectionInterface;
+use Predis\Connection\Replication\ReplicationInterface;
 
 use Smuuf\CeleryForPhp\StrictObject;
+use Smuuf\CeleryForPhp\Exc\RuntimeException;
 
 /**
  * Redis driver backed by Predis.
@@ -20,9 +23,20 @@ class PredisRedisDriver implements IRedisDriver {
 	) {}
 
 	public function getDatabaseIndex(): int {
-		/** @var \Predis\Connection\AbstractConnection */
 		$connection = $this->predis->getConnection();
-		return (int) $connection->getParameters()->database;
+
+		if ($connection instanceof NodeConnectionInterface) {
+			return (int) $connection->getParameters()->database;
+		}
+
+		if ($connection instanceof ReplicationInterface) {
+			return (int) $connection->getMaster()->getParameters()->database;
+		}
+
+		throw new RuntimeException(sprintf(
+			"Cannot retrieve database index from '%s'",
+			get_debug_type($connection),
+		));
 	}
 
 	public function get(string $key): mixed {

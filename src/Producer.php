@@ -40,6 +40,9 @@ class Producer {
 
 	}
 
+	/**
+	 * @param array<string, mixed> $args
+	 */
 	public function publishControl(
 		string $command,
 		array $args = [],

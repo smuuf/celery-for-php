@@ -24,16 +24,20 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: xdebug
-    - name: Prepare
+    - name: "Prepare: Install PHP dependencies + prepare scripts"
       run: |
         composer install --optimize-autoloader
         chmod +x ./bin/*.sh
+    - name: "Infra: Setup services"
+      run: ./bin/tests.sh -s infra:setup
     - name: Run tests
-      run: ./bin/tests.sh
+      run: ./bin/tests.sh -s tests
       env:
         C4P_TESTS_TASK_MESSAGE_PROTOCOL_VERSION: ${{ matrix.c4p-tests-task-message-protocol-version }}
         C4P_TESTS_BROKER_DRIVER: ${{ matrix.c4p-tests-broker-driver }}
         C4P_TESTS_BACKEND_DRIVER: ${{ matrix.c4p-tests-backend-driver }}
+    - name: "Infra: Tear down services"
+      run: ./bin/tests.sh -s infra:teardown
     - name: Run code style analysis
       continue-on-error: false
       run: ./bin/code-style.sh

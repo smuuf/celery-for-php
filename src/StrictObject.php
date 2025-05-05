@@ -11,7 +11,7 @@ trait StrictObject {
 	 *
 	 * @throws \LogicException
 	 */
-	public function __get(string $name) {
+	public function __get(string $name): mixed {
 
 		throw new \LogicException(sprintf(
 			"Cannot read an undeclared property '%s' in %s.",
@@ -26,7 +26,7 @@ trait StrictObject {
 	 *
 	 * @throw \LogicException
 	 */
-	public function __set(string $name, $value) {
+	public function __set(string $name, mixed $value): void {
 
 		throw new \LogicException(sprintf(
 			"Cannot write to an undeclared property '%s' in %s",
