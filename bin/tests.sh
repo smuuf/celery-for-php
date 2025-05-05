@@ -26,6 +26,7 @@ _compose up \
 	--quiet-pull \
 	--build
 
+TESTS_EXIST_CODE=0
 _info "Running tests"
 php ./vendor/nette/tester/src/tester \
 		-C `# Use system-wide php-ini` \
@@ -34,7 +35,10 @@ php ./vendor/nette/tester/src/tester \
 		--log ./tests/output/tests.log \
 		-p phpdbg \
 		$TEST_PATH \
-|| true # Continue even with failed tests.
+|| TESTS_EXIST_CODE=$? # Continue even with failed tests but obtain exit code.
+_info "Tests exit code: $TESTS_EXIST_CODE"
 
 _info "Stopping test services"
 _compose down --timeout 2
+
+exit $TESTS_EXIST_CODE
