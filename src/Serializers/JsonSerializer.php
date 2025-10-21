@@ -6,12 +6,16 @@ use Smuuf\CeleryForPhp\Interfaces\ISerializer;
 
 class JsonSerializer implements ISerializer {
 
+	private const JSON_ENCODE_FLAGS
+		= JSON_THROW_ON_ERROR
+		| JSON_INVALID_UTF8_SUBSTITUTE;
+
 	public function getContentType(): string {
 		return "application/json";
 	}
 
 	public function encode(mixed $input): string {
-		return json_encode($input, JSON_UNESCAPED_SLASHES);
+		return json_encode($input, self::JSON_ENCODE_FLAGS);
 	}
 
 	/**
