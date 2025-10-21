@@ -105,18 +105,34 @@ class AsyncResult implements IAsyncResult {
 
 	/**
 	 * Wait until task is ready, and return its final result.
+	 *
+	 * @param float|list<float> $interval Either a single interval in which to
+	 *     try fetching the result, or a list of intervals which will be used in
+	 *     specified order - the last interval is then tried repeatedly.
 	 */
-	public function get(?float $timeout = 10, float $interval = 0.4): mixed {
+	public function get(
+		?float $timeout = 10,
+		float|array $interval = 0.4,
+	): mixed {
 
 		$startTime = Functions::monotonicTime();
 		$timeoutTime = $timeout !== null
 			? $startTime + $timeout
 			: null;
 
-		$uInterval = (int) ($interval * 1_000_000);
+		$waits = is_array($interval) ? $interval : [$interval];
+
 		while (!$this->isReady()) {
 
-			usleep($uInterval);
+			// For intervals specified as [0.1, 0.6, 10] we'll first wait
+			// 0.1s, then 0.6s, then 10s repeatedly, until the task is ready (or
+			// we time out).
+			if ($waits) {
+				$wait = array_shift($waits);
+			}
+
+			$uWait = (int) ($wait * 1_000_000);
+			usleep($uWait);
 
 			if (
 				$timeoutTime !== null
